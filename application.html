@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Vòng quay Long Phụng</title>
+        <link rel="shortcut icon" href="img/icon.jpg">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/typo/typo.css" />
+        <link rel="stylesheet" href="css/hc-canvas-luckwheel.css" />
+        <style>
+            .hc-luckywheel{
+              position:fixed;
+              top: 50%;
+              left: 50%;
+              margin-top: -250px;
+              margin-left: -250px;
+            }
+          </style>
+    </head>
+    <body id="bg2">
+        <div class="header">
+            <div class="top-bar">
+                <div class="logo">
+                    <a href="https://fo4.garena.vn/" class="logo" target="_blank">
+                        <img src="https://cdn.vn.garenanow.com/web/fo4/events/fo4-bilac-react/images/logo.png">
+                    </a>
+                </div>
+                <div class="menu">
+                    <a href="application.html" class="menu-link" target="_blank">Trang chủ</a>
+                    <a href="#" class="menu-link">Hướng dẫn</a>
+                    <a href="#" class="menu-link">Lịch sử</a>
+                    <a href="https://napthe.vn/" class="menu-link">Nạp thẻ</a>
+                    <a href="index.html" class="menu-link">Vòng quay siêu cấp</a>
+                </div>
+                <div class="sound">
+                    <button onclick="enableMute()" type="button">Off</button>
+                    <button onclick="disableMute()" type="button">On</button>
+                    <audio loop autoplay preload="auto" id="myMusic">
+                        <source src="music.mp3" type="audio/mpeg">
+                    </audio>
+                    <script>
+                        var vid = document.getElementById("myMusic");
+                        function enableMute() {
+                            vid.muted = true;
+                        }
+                        function disableMute() {
+                            vid.muted = false;
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="content2">
+            <div class="wrapper typo" id="wrapper">
+                <section id="luckywheel" class="hc-luckywheel">
+                    <div class="hc-luckywheel-container">
+                        <canvas class="hc-luckywheel-canvas" width="500px" height="500px"></canvas>
+                    </div>
+                    <a class="hc-luckywheel-btn" href="javascript:;">Xoay</a>
+                </section>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+            <script src="js/hc-canvas-luckwheel.js"></script>
+            <script>
+                var isPercentage = true;
+                var prizes = [
+                        {
+                            text: "       ",
+                            img: "img/qua_vongquay/500300173_s.png" ,
+                            number: 1, // 1%,
+                            percentpage: 0.01 // 0.1%
+                        },
+                        
+                        {
+                            text: "       ",
+                            img: "img/qua_vongquay/200206955_s.png",
+                            number : 1,
+                            percentpage: 0.04 // 2%->4
+                        },                       
+                        
+                        {
+                            text: "       ",
+                            img: "img/qua_vongquay/200206969_s.png",
+                            number : 1,
+                            percentpage: 0.15 // 5%->10
+                        },
+                        {
+                            text: "       ",
+                            img: "img/qua_vongquay/200206701_s.png",
+                            number : 1,
+                            percentpage: 0.04 // 2%->4
+                        },
+                        {
+                            text: "       ",
+                            img: "img/qua_vongquay/500212322_s.png",
+                            number : 1,
+                            percentpage: 0.15 // 10%->15
+                        },                        
+                        {
+                            text: "       ",
+                            img: "img/qua_vongquay/500212425_s.png",
+                            number : 1,
+                            percentpage: 0.3 // 15%->30
+                        },
+                        {
+                            text: "       ",
+                            img: "img/qua_vongquay/200206707_s.png",
+                            number: 1,
+                            percentpage: 0.01 
+                        },
+                        {
+                            text: "       ",
+                            img: "img/qua_vongquay/500212201_s.png",
+                            percentpage: 0.3 // 15%->30
+                        }
+                    ];
+                document.addEventListener(
+                    "DOMContentLoaded",
+                    function() {
+                        hcLuckywheel.init({
+                            id: "luckywheel",
+                            config: function(callback) {
+                            callback &&
+                                callback(prizes);
+                            },
+                            mode : "both",
+                            getPrize: function(callback) {
+                            var rand = randomIndex(prizes);
+                            var chances = rand;
+                            callback && callback([rand, chances]);
+                            },
+                            gotBack: function(data) {
+                            if(data == null){
+                                Swal.fire(
+                                'Chương trình kết thúc',
+                                )
+                            }  else{
+                                Swal.fire(
+                                'Chúc mừng bạn nhận được',
+                                data,
+                                'success'
+                                )
+                            }
+                            }
+                        });
+                        },
+                    false
+                );
+                function randomIndex(prizes){
+                    if(isPercentage){
+                        var counter = 1;
+                        for (let i = 0; i < prizes.length; i++) {
+                            if(prizes[i].number == 0){
+                            counter++
+                            }
+                        }
+                        if(counter == prizes.length){
+                            return null
+                        }
+                        let rand = Math.random();
+                        let prizeIndex = null;
+                        console.log(rand);
+                        switch (true) {
+                            case rand < prizes[7].percentpage:
+                            prizeIndex = 7 ;
+                            break;
+                            case rand < prizes[7].percentpage + prizes[6].percentpage:
+                            prizeIndex = 6;
+                            break;
+                            case rand < prizes[7].percentpage + prizes[6].percentpage + prizes[5].percentpage:
+                            prizeIndex = 5;
+                            break;
+                            case rand < prizes[7].percentpage + prizes[6].percentpage + prizes[5].percentpage + prizes[4].percentpage:
+                            prizeIndex = 4;
+                            break;  
+                            case rand < prizes[7].percentpage + prizes[6].percentpage + prizes[5].percentpage + prizes[4].percentpage  + prizes[3].percentpage:
+                            prizeIndex = 3;
+                            break;
+                            case rand < prizes[7].percentpage + prizes[6].percentpage + prizes[5].percentpage + prizes[4].percentpage  + prizes[3].percentpage + prizes[2].percentpage:
+                            prizeIndex = 2;
+                            break; 
+                            case rand < prizes[7].percentpage + prizes[6].percentpage + prizes[5].percentpage + prizes[4].percentpage  + prizes[3].percentpage + prizes[2].percentpage + prizes[1].percentpage:
+                            prizeIndex = 1;
+                            break;
+                            case rand < prizes[7].percentpage + prizes[6].percentpage + prizes[5].percentpage + prizes[4].percentpage  + prizes[3].percentpage + prizes[2].percentpage + prizes[1].percentpage + prizes[0].percentpage:
+                            prizeIndex = 0;
+                            break;  
+                        }
+                        if(prizes[prizeIndex].number != 0){
+                            prizes[prizeIndex].number = prizes[prizeIndex].number - 1
+                            return prizeIndex
+                        }else{
+                            return randomIndex(prizes)
+                        }
+                    }else{
+                        var counter = 0;
+                        for (let i = 0; i < prizes.length; i++) {
+                            if(prizes[i].number == 0){
+                            counter++
+                            }
+                        }
+                        if(counter == prizes.length){
+                            return null
+                        }
+                        var rand = (Math.random() * (prizes.length)) >>> 0;
+                        if(prizes[rand].number != 0){
+                            prizes[rand].number = prizes[rand].number - 1
+                            return rand
+                        }else{
+                            return randomIndex(prizes)
+                        }
+                    }
+                }
+            </script>
+        </div>       
+    </body>
+
+  
+</html>

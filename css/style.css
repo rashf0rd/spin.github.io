@@ -1,0 +1,52 @@
+#header{
+    z-index: 9;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+}
+
+.top-bar{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: red;
+    box-sizing: border-box;
+    position: relative;
+
+}
+
+.bg {
+    background-image: url('https://cdn.vn.garenanow.com//fo3vn/project/playerPack/bilact12023_1.gif');
+    background-repeat: no-repeat;
+    background-attachment: fixed;  
+    background-size: cover;
+}
+
+.section--1{
+    background-image: url('https://cdn.vn.garenanow.com//fo3vn/project/playerPack/bilact12023_1.gif');
+    background-repeat: no-repeat;
+    background-attachment: fixed;  
+    background-size: cover;
+}
+
+.wrapper-1{
+    position: relative;
+    left: 20px;
+}
+
+.content{
+    background-image: url('https://cdn.vn.garenanow.com//fo3vn/project/playerPack/bilact12023_2.gif');
+    background-repeat: no-repeat;
+    background-attachment: fixed;  
+    background-size: cover;
+}
+
+.menu{
+    width: 50%;
+    font-size: 17px;
+    font-family: 'Times New Roman', Times, serif;
+}
